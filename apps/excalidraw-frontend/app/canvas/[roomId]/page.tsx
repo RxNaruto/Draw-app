@@ -6,6 +6,10 @@ export default async function CanvasPage({params}: {
     }
 }){
     const roomId = (await params).roomId;
+    if(!roomId){
+        console.log("Room Id not provided");
+        return;
+    }
     return <RoomCanvas roomId = {roomId} />
     
 }
