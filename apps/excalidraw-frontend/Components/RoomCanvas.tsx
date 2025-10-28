@@ -2,10 +2,18 @@
 import { WS_URL } from "@/config";
 import { useEffect, useState } from "react";
 import { Canvas } from "./Canvas";
+import Cookies from "js-cookie"
 export function RoomCanvas({roomId}: {roomId: string}){
     const [socket,setSocket] = useState<WebSocket | null>(null);
     useEffect(()=>{
-        const ws = new WebSocket(`${WS_URL}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZDBhMzU0ZS1hNGE5LTRhNDAtYmM3NC0zM2QxOGRlNDZjYjEiLCJpYXQiOjE3NDU5MzE5MjB9.pDs11fyBR74x0K200mHZsH0BrrxRf5H-HmX6SzwtpqY`)
+        const token = Cookies.get("jwt");
+
+        if(!token){
+            alert("Not signed in");
+            window.location.href = "/signin";
+            return;
+        }
+        const ws = new WebSocket(`${WS_URL}?token=${token}`)
 
 
         ws.onopen=()=>{
