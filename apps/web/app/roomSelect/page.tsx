@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import Cookies from "js-cookie";
@@ -20,12 +20,17 @@ export default function Home() {
     const res = await axios.post(`${BACKEND_URL}/room`,{name: roomId},{
       headers: {
         'Authorization': token
-      }
+      },
+      validateStatus: () => true
       
     })
     if(res.status===200){
       alert("Success");
       console.log(res);
+      
+    }
+    else if(res.status===411){
+      alert("Room with same name already exist");
     }
     
     

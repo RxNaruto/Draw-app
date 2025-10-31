@@ -3,6 +3,7 @@
 import { useState } from "react"
 import axios from "axios";
 import Cookies from "js-cookie"
+import { redirect } from "next/navigation";
 export default function Signin(){
 
 const[username,setUsername]= useState("");
@@ -18,7 +19,7 @@ const signinData=async()=>{
  const token = res.data.token;
  Cookies.set("jwt",token);
  alert("Sign in success")
-  console.log(res.data.token);
+  redirect("/")
 }
 return <div>
     <input type="text" name="Username" placeholder="JhonDoe@mail.com" onChange={(e)=>{

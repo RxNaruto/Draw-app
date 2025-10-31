@@ -29,8 +29,8 @@ export default async function ChatRoom({
     const {slug} = params;
     const roomId = await getRoomId(slug);
     if(!roomId){
-        alert("Room id not found");
-        redirect("/")
+        redirect("/roomSelect")
+        
     }
     redirect(`http://localhost:3001/canvas/${roomId}`);
     
