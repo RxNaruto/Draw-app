@@ -16,7 +16,14 @@ type Shape =
       radius: number;
       startAngle: number;
       endAngle: number;
-    };
+    }
+   |{
+    type: "Line";
+     startX: number;
+     startY: number;
+     lastX: number;
+     lastY: number;
+   } ;
 
 export class Game {
   private canvas: HTMLCanvasElement;
@@ -92,6 +99,12 @@ export class Game {
         );
         ctx.stroke();
       }
+      else if(shape.type==="Line"){
+        ctx.beginPath();
+        ctx.moveTo(shape.startX, shape.startY);
+        ctx.lineTo(shape.lastX,shape.lastY);
+        ctx.stroke();
+      }
     }
   }
 
@@ -138,6 +151,17 @@ export class Game {
         startAngle: 0,
         endAngle: 2 * Math.PI,
       };
+
+    }
+    else if(this.selectedTool==='Line'){
+        shape ={
+            type: "Line",
+            startX: this.startX,
+            startY: this.startY,
+            lastX: endX,
+            lastY: endY
+
+        }
     }
 
     if (!shape) return;
@@ -171,6 +195,12 @@ export class Game {
       this.ctx.beginPath();
       this.ctx.arc(this.startX, this.startY, radius, 0, 2 * Math.PI);
       this.ctx.stroke();
+    }
+    else if(this.selectedTool==='Line'){
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startX,this.startY);
+        this.ctx.lineTo(x,y);
+        this.ctx.stroke();
     }
   };
 

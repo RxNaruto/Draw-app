@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { IconButton } from "./IconButton";
-import { Pencil, RectangleHorizontal, Circle } from "lucide-react";
+import { Slash, RectangleHorizontal, Circle } from "lucide-react";
 import { Game } from "@/draw/Game";
 
-export type Tool = "circle" | "rect" | "pencil";
+export type Tool = "circle" | "rect" | "Line";
 
 export function Canvas({
   roomId,
@@ -54,9 +54,9 @@ function Topbar({
   return (
     <div style={{ position: "fixed", top: 10, left: 10, display: "flex", gap: "10px" }}>
       <IconButton
-        Icon={<Pencil />}
-        onClick={() => setSelectedTool("pencil")}
-        activated={selectedTool === "pencil"}
+        Icon={<Slash />}
+        onClick={() => setSelectedTool("Line")}
+        activated={selectedTool === "Line"}
       />
       <IconButton
         Icon={<RectangleHorizontal />}
