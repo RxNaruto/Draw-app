@@ -6,6 +6,7 @@ import { BACKEND_URL } from "../config";
 import Cookies from "js-cookie";
 
 export default function Home() {
+  const token = Cookies.get("jwt");
   const [roomId, setRoomId] = useState("");
   const [allroom, setAllRooms] = useState<{
     id: number;

@@ -30,6 +30,10 @@ return <div>
     }} />
 
     <button onClick={signinData}>Sign In</button>
+    <p>Register</p>
+    <button onClick={()=>{
+        redirect("/auth/signup");
+    }}>Signup</button>
 
 </div>
 }

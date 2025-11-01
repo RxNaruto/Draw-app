@@ -3,6 +3,7 @@ import { WS_URL } from "@/config";
 import { useEffect, useState } from "react";
 import { Canvas } from "./Canvas";
 import Cookies from "js-cookie"
+import { redirect } from "next/navigation";
 export function RoomCanvas({roomId}: {roomId: string}){
     const [socket,setSocket] = useState<WebSocket | null>(null);
     useEffect(()=>{
@@ -10,8 +11,8 @@ export function RoomCanvas({roomId}: {roomId: string}){
 
         if(!token){
             alert("Not signed in");
-            window.location.href = "/signin";
-            return;
+            redirect(`http://localhost:3000/auth/signin`);
+            
         }
         const ws = new WebSocket(`${WS_URL}?token=${token}`)
 

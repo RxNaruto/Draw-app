@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import axios from "axios";
-
+import { redirect } from "next/navigation";
 
 
 export default function Signin(){
@@ -31,7 +31,10 @@ return <div>
         setName(e.target.value);
     }}/>
 
-    <button onClick={signUpData}>Sign In</button>
-
+    <button onClick={signUpData}>Sign Up</button>
+    <p>Register</p>
+        <button onClick={()=>{
+            redirect("/auth/signin");
+        }}>Signin</button>
 </div>
 }
