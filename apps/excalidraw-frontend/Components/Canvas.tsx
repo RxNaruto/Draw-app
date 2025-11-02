@@ -1,7 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { IconButton } from "./IconButton";
-import { Slash, RectangleHorizontal, Circle, Triangle, Pencil, DoorClosed, DoorOpen } from "lucide-react";
+import {
+  Slash,
+  RectangleHorizontal,
+  Circle,
+  Triangle,
+  Pencil,
+  DoorOpen,
+} from "lucide-react";
 import { Game } from "@/draw/Game";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +39,7 @@ export function Canvas({
   useEffect(() => {
     gameRef.current?.setTool(selectedTool);
   }, [selectedTool]);
-  
+
   return (
     <div style={{ height: "100vh", overflow: "hidden" }}>
       <canvas
@@ -40,67 +47,67 @@ export function Canvas({
         height={window.innerHeight}
         ref={canvasRef}
       />
-      <Topbar selectedTool={selectedTool} setSelectedTool={setSelectedTool} />
+      <Sidebar selectedTool={selectedTool} setSelectedTool={setSelectedTool} />
+      <LeaveButton />
     </div>
   );
 }
 
-function Topbar({
+function Sidebar({
   selectedTool,
   setSelectedTool,
 }: {
   selectedTool: Tool;
   setSelectedTool: (s: Tool) => void;
 }) {
-  const router = useRouter();
   return (
     <div
-      style={{
-        position: "fixed",
-        top: 10,
-        left: 10,
-        right: 10,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+      className="fixed top-1/2 left-6 -translate-y-1/2 flex flex-col items-center gap-4 p-4 
+                 bg-white/30 backdrop-blur-lg rounded-2xl border border-white/20 shadow-lg"
     >
-      {/* --- Drawing Tools --- */}
-      <div style={{ display: "flex", gap: "10px" }}>
-        <IconButton
-          Icon={<Slash />}
-          onClick={() => setSelectedTool("line")}
-          activated={selectedTool === "line"}
-        />
-        <IconButton
-          Icon={<RectangleHorizontal />}
-          onClick={() => setSelectedTool("rect")}
-          activated={selectedTool === "rect"}
-        />
-        <IconButton
-          Icon={<Circle />}
-          onClick={() => setSelectedTool("circle")}
-          activated={selectedTool === "circle"}
-        />
-        <IconButton
-          Icon={<Triangle />}
-          onClick={() => setSelectedTool("triangle")}
-          activated={selectedTool === "triangle"}
-        />
-        <IconButton
-          Icon={<Pencil />}
-          onClick={() => setSelectedTool("pencil")}
-          activated={selectedTool === "pencil"}
-        />
-      </div>
-      <button
-        onClick={() => router.back()}
-        className="pointer rounded-full border p-2 bg-white hover:bg-amber-100 flex items-center justify-center"
-        title="Leave Room"
-      >
-        <DoorClosed className="h-5 w-5 text-gray-700" />
-      </button>
+      <IconButton
+        Icon={<Slash />}
+        onClick={() => setSelectedTool("line")}
+        activated={selectedTool === "line"}
+      />
+      <IconButton
+        Icon={<RectangleHorizontal />}
+        onClick={() => setSelectedTool("rect")}
+        activated={selectedTool === "rect"}
+      />
+      <IconButton
+        Icon={<Circle />}
+        onClick={() => setSelectedTool("circle")}
+        activated={selectedTool === "circle"}
+      />
+      <IconButton
+        Icon={<Triangle />}
+        onClick={() => setSelectedTool("triangle")}
+        activated={selectedTool === "triangle"}
+      />
+      <IconButton
+        Icon={<Pencil />}
+        onClick={() => setSelectedTool("pencil")}
+        activated={selectedTool === "pencil"}
+      />
     </div>
   );
 }
 
+function LeaveButton() {
+  const router = useRouter();
+
+  return (
+    <button
+      onClick={() => router.back()}
+      className="fixed top-8 right-10 inline-flex items-center gap-2 px-5 py-2 
+                 border-2 border-[#6965db] rounded-xl text-[#6965db] font-bold 
+                 hover:bg-[#f7f7ff] transition-all shadow-md hover:shadow-lg 
+                 transform hover:-translate-y-0.5 backdrop-blur-md bg-white"
+      title="Leave Room"
+    >
+      <DoorOpen className="h-5 w-5" />
+      Leave
+    </button>
+  );
+}
